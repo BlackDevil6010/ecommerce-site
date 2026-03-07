@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroAuto | Premium Car Accessories</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS for Glassmorphism & Animations -->
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-highlight: rgba(255, 255, 255, 0.25);
+            --accent: #00f2fe;
+            --accent-alt: #4facfe;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-style: italic;
+            background-color: #050b14;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background Blobs to make Glassmorphism visible */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        .blob-1 {
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            width: 500px;
+            height: 500px;
+            top: -10%;
+            left: -10%;
+        }
+
+        .blob-2 {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            width: 400px;
+            height: 400px;
+            bottom: 10%;
+            right: -5%;
+            animation-delay: -5s;
+        }
+
+        .blob-3 {
+            background: linear-gradient(to right, #ff0844, #ffb199);
+            width: 300px;
+            height: 300px;
+            top: 40%;
+            left: 40%;
+            opacity: 0.3;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* Glassmorphism Core Classes */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle lighting effect on glass edges */
+        .glass::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--glass-highlight), transparent 50%, transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .glass-panel {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-panel:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 15px 40px 0 rgba(0, 242, 254, 0.15);
+        }
+
+        /* Modern Floating Navbar Styles */
+        .nav-wrapper {
+            padding-top: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .nav-wrapper.scrolled {
+            padding-top: 0.5rem;
+        }
+        .nav-pill {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            transition: all 0.4s ease;
+        }
+        .nav-wrapper.scrolled .nav-pill {
+            background: rgba(5, 11, 20, 0.85);
+            border-color: rgba(0, 242, 254, 0.4);
+            box-shadow: 0 10px 40px -10px rgba(0, 242, 254, 0.3);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .nav-inner {
+            height: 5rem;
+            transition: all 0.4s ease;
+        }
+        .nav-wrapper.scrolled .nav-inner {
+            height: 4rem;
+        }
+        
+        /* Animated Nav Links */
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 0.25rem;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00f2fe, #4facfe);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-alt), var(--accent));
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* Image Masking */
+        .image-mask {
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050b14; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2); 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4); 
+        }
+
+        /* Light Theme Overrides */
+        body.light-theme {
+            background-color: #eef2f6; 
+            color: #0f172a;
+        }
+        body.light-theme .blob-1 { background: linear-gradient(to right, #a1c4fd, #c2e9fb); opacity: 0.8; }
+        body.light-theme .blob-2 { background: linear-gradient(to right, #ffecd2, #fcb69f); opacity: 0.8; }
+        body.light-theme .blob-3 { background: linear-gradient(to right, #cfd9df, #e2ebf0); opacity: 0.8; }
+        
+        body.light-theme .glass {
+            background: rgba(255, 255, 255, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05) !important;
+        }
+        body.light-theme .glass-panel:hover {
+            background: rgba(255, 255, 255, 0.9) !important;
+            border-color: rgba(2, 132, 199, 0.3) !important;
+            box-shadow: 0 15px 40px 0 rgba(2, 132, 199, 0.1) !important;
+        }
+        
+        /* Typography overrides */
+        body.light-theme .text-white:not(.keep-white) { color: #0f172a !important; }
+        body.light-theme .text-gray-300:not(.keep-white) { color: #334155 !important; }
+        body.light-theme .text-gray-400:not(.keep-white) { color: #475569 !important; }
+        body.light-theme .text-gray-500:not(.keep-white) { color: #64748b !important; }
+        body.light-theme .text-cyan-400 { color: #0284c7 !important; }
+        body.light-theme .text-cyan-300 { color: #0369a1 !important; }
+        
+        /* Glass tint overrides */
+        body.light-theme .bg-black\/20 { background-color: rgba(255, 255, 255, 0.4) !important; }
+        body.light-theme .bg-black\/50 { background-color: rgba(255, 255, 255, 0.5) !important; }
+        body.light-theme .bg-black\/60 { background-color: rgba(255, 255, 255, 0.6) !important; }
+        body.light-theme .bg-black\/80 { background-color: rgba(255, 255, 255, 0.8) !important; }
+        body.light-theme .bg-white\/5 { background-color: rgba(255, 255, 255, 0.5) !important; }
+        body.light-theme .bg-gray-900 { background-color: #cbd5e1 !important; }
+        
+        body.light-theme .border-white\/10 { border-color: rgba(0, 0, 0, 0.1) !important; }
+        body.light-theme .border-white\/20 { border-color: rgba(0, 0, 0, 0.15) !important; }
+        
+        /* Input & Button Adjustments */
+        body.light-theme input {
+            color: #0f172a !important;
+            background-color: rgba(255, 255, 255, 0.7) !important;
+            border-color: rgba(0, 0, 0, 0.2) !important;
+        }
+        body.light-theme input::placeholder { color: #64748b !important; }
+        
+        body.light-theme .btn-glass:not(.keep-white) {
+            color: #0f172a !important;
+            border-color: rgba(0, 0, 0, 0.2) !important;
+        }
+        body.light-theme .btn-glass:hover {
+            background-color: rgba(255,255,255,1) !important;
+            border-color: #0284c7 !important;
+        }
+        
+        body.light-theme .from-white.to-gray-400 {
+            background-image: linear-gradient(to right, #0f172a, #475569) !important;
+        }
+        body.light-theme .nav-wrapper.scrolled .nav-pill {
+            background: rgba(255, 255, 255, 0.85) !important;
+            border-color: rgba(2, 132, 199, 0.2) !important;
+        }
+        body.light-theme ::-webkit-scrollbar-track { background: #eef2f6; }
+        body.light-theme ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Background Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 nav-wrapper px-4 sm:px-6 lg:px-8" id="navbar">
+        <div class="max-w-7xl mx-auto nav-pill glass px-4 sm:px-6">
+            <div class="flex items-center justify-between nav-inner" id="nav-inner">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer group">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 flex items-center justify-center text-xl font-bold group-hover:shadow-[0_0_20px_rgba(0,242,254,0.6)] transition-all duration-300 transform group-hover:scale-110">
+                        <i class="fa-solid fa-car-side text-white keep-white"></i>
+                    </div>
+                    <span class="font-bold text-2xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 group-hover:from-cyan-100 group-hover:to-cyan-400 transition-all duration-300">AeroAuto</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#" class="text-white nav-link active font-medium transition-colors">Home</a>
+                        <a href="#categories" class="text-gray-300 hover:text-white nav-link font-medium transition-colors">Categories</a>
+                        <a href="#featured" class="text-gray-300 hover:text-white nav-link font-medium transition-colors">Shop</a>
+                        <a href="#" class="text-gray-300 hover:text-white nav-link font-medium transition-colors">About Us</a>
+                    </div>
+                </div>
+
+                <!-- Icons -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <button onclick="toggleTheme()" class="text-gray-300 hover:text-white hover:border-cyan-400 hover:bg-cyan-500/10 transition-all duration-300 w-10 h-10 rounded-full glass border border-white/10 flex items-center justify-center">
+                        <i id="theme-icon" class="fa-solid fa-sun"></i>
+                    </button>
+                    <button class="text-gray-300 hover:text-white hover:border-cyan-400 hover:bg-cyan-500/10 transition-all duration-300 w-10 h-10 rounded-full glass border border-white/10 flex items-center justify-center hidden sm:flex">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                    <button id="user-btn" onclick="openLogin()" class="text-gray-300 hover:text-white hover:border-cyan-400 hover:bg-cyan-500/10 transition-all duration-300 w-10 h-10 rounded-full glass border border-white/10 flex items-center justify-center">
+                        <i class="fa-regular fa-user"></i>
+                    </button>
+                    <button onclick="openCart()" class="text-gray-300 hover:text-white hover:border-cyan-400 hover:bg-cyan-500/10 transition-all duration-300 w-10 h-10 rounded-full glass border border-white/10 flex items-center justify-center relative group">
+                        <i class="fa-solid fa-shopping-cart group-hover:animate-bounce"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-gradient-to-tr from-cyan-500 to-blue-600 text-xs text-white keep-white rounded-full w-5 h-5 flex items-center justify-center font-bold shadow-[0_0_10px_rgba(0,242,254,0.5)] transition-transform group-hover:scale-110">0</span>
+                    </button>
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden flex items-center ml-1">
+                        <button onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white hover:text-cyan-400 focus:outline-none transition-colors w-10 h-10 flex items-center justify-center">
+                            <i id="mobile-menu-icon" class="fa-solid fa-bars text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="absolute top-24 left-4 right-4 glass border border-white/10 rounded-3xl flex flex-col px-6 py-8 space-y-6 transform -translate-y-[150%] opacity-0 pointer-events-none transition-all duration-400 z-40 md:hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <a href="#" onclick="toggleMobileMenu()" class="text-white hover:text-cyan-400 text-xl font-medium border-b border-white/5 pb-2 nav-link inline-block origin-left">Home</a>
+            <a href="#categories" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-cyan-400 text-xl font-medium border-b border-white/5 pb-2 nav-link inline-block origin-left">Categories</a>
+            <a href="#featured" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-cyan-400 text-xl font-medium border-b border-white/5 pb-2 nav-link inline-block origin-left">Shop</a>
+            <a href="#" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-cyan-400 text-xl font-medium nav-link inline-block origin-left">About Us</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="flex-grow pt-28 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-12 mt-10">
+                
+                <!-- Hero Text inside Glass Card -->
+                <div class="w-full lg:w-1/2">
+                    <div class="glass p-8 sm:p-12 relative z-10">
+                        <div class="inline-block px-4 py-1 rounded-full border border-cyan-400/30 bg-cyan-500/10 text-cyan-300 text-sm font-semibold mb-6">
+                            <i class="fa-solid fa-bolt mr-2"></i> New Arrivals 2026
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                            Upgrade Your <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Dream Ride</span>
+                        </h1>
+                        <p class="text-gray-300 text-base sm:text-lg mb-8 leading-relaxed">
+                            Discover premium automotive accessories, performance parts, and cutting-edge lighting systems designed to elevate your driving experience.
+                        </p>
+                        <div class="flex flex-col sm:flex-row flex-wrap gap-4">
+                            <a href="#featured" class="btn-primary text-white keep-white font-bold py-3 px-8 rounded-full flex items-center justify-center gap-2 w-full sm:w-auto">
+                                Shop Now <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                            <button onclick="openVideo()" class="btn-glass text-white font-bold py-3 px-8 rounded-full flex items-center justify-center gap-2 w-full sm:w-auto">
+                                <i class="fa-solid fa-play text-cyan-400"></i> Watch Video
+                            </button>
+                        </div>
+                        
+                        <!-- Mini Stats -->
+                        <div class="grid grid-cols-3 gap-4 mt-10 pt-8 border-t border-white/10">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">10K+</h3>
+                                <p class="text-sm text-gray-400">Products</p>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">50K+</h3>
+                                <p class="text-sm text-gray-400">Customers</p>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">4.9/5</h3>
+                                <p class="text-sm text-gray-400">Reviews</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="w-full lg:w-1/2 relative">
+                    <!-- Decorative background glow for image -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-tr from-cyan-500/20 to-blue-500/20 rounded-full filter blur-3xl z-0"></div>
+                    
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Sport Car" 
+                         class="relative z-10 w-full object-cover rounded-2xl glass-panel shadow-2xl shadow-cyan-900/50 h-[500px]">
+                         
+                    <!-- Floating Glass Badge -->
+                    <div class="absolute -bottom-6 -left-6 glass p-4 flex items-center gap-4 z-20 animate-bounce" style="animation-duration: 3s;">
+                        <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 text-xl border border-green-500/30">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">2 Year Warranty</h4>
+                            <p class="text-xs text-gray-300">On all electronics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Section -->
+        <div id="categories" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-32">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Browse by <span class="text-cyan-400">Category</span></h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Category 1 -->
+                <div class="glass glass-panel p-4 sm:p-6 cursor-pointer group text-center">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-white/5 flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-cyan-500/20 transition-colors border border-white/10 group-hover:border-cyan-400/50">
+                        <i class="fa-solid fa-lightbulb text-2xl sm:text-3xl text-gray-300 group-hover:text-cyan-400 transition-colors"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2">Lighting</h3>
+                    <p class="text-xs sm:text-sm text-gray-400">LEDs, Underglow, Headlights</p>
+                </div>
+                <!-- Category 2 -->
+                <div class="glass glass-panel p-4 sm:p-6 cursor-pointer group text-center">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-white/5 flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-cyan-500/20 transition-colors border border-white/10 group-hover:border-cyan-400/50">
+                        <i class="fa-solid fa-car text-2xl sm:text-3xl text-gray-300 group-hover:text-cyan-400 transition-colors"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2">Exterior</h3>
+                    <p class="text-xs sm:text-sm text-gray-400">Spoilers, Body Kits, Wraps</p>
+                </div>
+                <!-- Category 3 -->
+                <div class="glass glass-panel p-4 sm:p-6 cursor-pointer group text-center">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-white/5 flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-cyan-500/20 transition-colors border border-white/10 group-hover:border-cyan-400/50">
+                        <i class="fa-solid fa-gauge-high text-2xl sm:text-3xl text-gray-300 group-hover:text-cyan-400 transition-colors"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2">Performance</h3>
+                    <p class="text-xs sm:text-sm text-gray-400">Exhausts, Intakes, Tuning</p>
+                </div>
+                <!-- Category 4 -->
+                <div class="glass glass-panel p-4 sm:p-6 cursor-pointer group text-center">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-white/5 flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-cyan-500/20 transition-colors border border-white/10 group-hover:border-cyan-400/50">
+                        <i class="fa-solid fa-couch text-2xl sm:text-3xl text-gray-300 group-hover:text-cyan-400 transition-colors"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2">Interior</h3>
+                    <p class="text-xs sm:text-sm text-gray-400">Seats, Mats, Steering Wheels</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Products -->
+        <div id="featured" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-32 mb-16">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Trending <span class="text-cyan-400">Upgrades</span></h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full"></div>
+                </div>
+                <a href="#" class="text-cyan-400 hover:text-white transition-colors hidden sm:block font-medium">View All <i class="fa-solid fa-arrow-right ml-1"></i></a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Product 1 -->
+                <div class="glass glass-panel flex flex-col h-full rounded-2xl overflow-hidden group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=500&q=80" alt="Alloy Wheels" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-3 right-3 glass w-10 h-10 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-500/20 hover:text-red-400 transition-colors">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex items-center gap-1 text-yellow-400 text-xs mb-2">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            <span class="text-gray-400 ml-1">(128)</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1">Forged Alloy Wheels 19"</h3>
+                        <p class="text-sm text-gray-400 mb-4 flex-grow">Lightweight matte black finish.</p>
+                        <div class="flex items-center justify-between mt-auto">
+                            <span class="text-xl font-extrabold text-cyan-400">₹74,999</span>
+                            <button onclick="addToCart('Forged Alloy Wheels 19\'', 74999, 'https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=100&q=80')" class="btn-glass p-3 rounded-xl hover:bg-cyan-500/20 hover:border-cyan-400 transition-colors">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="glass glass-panel flex flex-col h-full rounded-2xl overflow-hidden group">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute top-3 left-3 bg-gradient-to-r from-red-500 to-pink-500 text-white keep-white text-xs font-bold px-2 py-1 rounded z-10">HOT</div>
+                        <img src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?auto=format&fit=crop&w=500&q=80" alt="LED Lights" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-3 right-3 glass w-10 h-10 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-500/20 hover:text-red-400 transition-colors z-10">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex items-center gap-1 text-yellow-400 text-xs mb-2">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span class="text-gray-400 ml-1">(342)</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1">RGB Underglow Kit</h3>
+                        <p class="text-sm text-gray-400 mb-4 flex-grow">App-controlled with music sync.</p>
+                        <div class="flex items-center justify-between mt-auto">
+                            <span class="text-xl font-extrabold text-cyan-400">₹10,499</span>
+                            <button onclick="addToCart('RGB Underglow Kit', 10499, 'https://images.unsplash.com/photo-1550684376-efcbd6e3f031?auto=format&fit=crop&w=100&q=80')" class="btn-glass p-3 rounded-xl hover:bg-cyan-500/20 hover:border-cyan-400 transition-colors">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="glass glass-panel flex flex-col h-full rounded-2xl overflow-hidden group">
+                    <div class="relative h-48 overflow-hidden bg-gray-900">
+                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=500&q=80" alt="Steering Wheel" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 mix-blend-lighten opacity-80">
+                        <div class="absolute top-3 right-3 glass w-10 h-10 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-500/20 hover:text-red-400 transition-colors z-10">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex items-center gap-1 text-yellow-400 text-xs mb-2">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+                            <span class="text-gray-400 ml-1">(89)</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1">Carbon Fiber Steering Wheel</h3>
+                        <p class="text-sm text-gray-400 mb-4 flex-grow">Alcantara grips, flat bottom design.</p>
+                        <div class="flex items-center justify-between mt-auto">
+                            <span class="text-xl font-extrabold text-cyan-400">₹37,500</span>
+                            <button onclick="addToCart('Carbon Fiber Steering Wheel', 37500, 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=100&q=80')" class="btn-glass p-3 rounded-xl hover:bg-cyan-500/20 hover:border-cyan-400 transition-colors">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="glass glass-panel flex flex-col h-full rounded-2xl overflow-hidden group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=500&q=80" alt="Exhaust" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute top-3 right-3 glass w-10 h-10 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-500/20 hover:text-red-400 transition-colors z-10">
+                            <i class="fa-solid fa-heart text-red-500"></i>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex items-center gap-1 text-yellow-400 text-xs mb-2">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span class="text-gray-400 ml-1">(215)</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-1">Titanium Catback Exhaust</h3>
+                        <p class="text-sm text-gray-400 mb-4 flex-grow">Adds +15HP. Deep aggressive tone.</p>
+                        <div class="flex items-center justify-between mt-auto">
+                            <span class="text-xl font-extrabold text-cyan-400">₹99,999</span>
+                            <button onclick="addToCart('Titanium Catback Exhaust', 99999, 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=100&q=80')" class="btn-glass p-3 rounded-xl hover:bg-cyan-500/20 hover:border-cyan-400 transition-colors">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-8 text-center sm:hidden">
+                <button class="btn-glass px-6 py-2 rounded-full text-white font-medium text-sm">View All Products</button>
+            </div>
+        </div>
+
+        <!-- Call to Action Banner -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
+            <div class="glass rounded-3xl p-8 sm:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between">
+                <!-- Inner glow -->
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/30 rounded-full filter blur-3xl"></div>
+                
+                <div class="relative z-10 md:w-2/3 mb-8 md:mb-0">
+                    <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-center md:text-left">Join our VIP Auto Club</h2>
+                    <p class="text-gray-300 mb-6 text-base sm:text-lg text-center md:text-left">Get 15% off your first order, exclusive access to limited drops, and free shipping on orders over ₹8,000.</p>
+                    <div class="flex flex-col sm:flex-row w-full max-w-md mx-auto md:mx-0 gap-3">
+                        <input type="email" placeholder="Enter your email" class="w-full bg-white/5 border border-white/20 rounded-full px-6 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all glass">
+                        <button class="btn-primary rounded-full px-6 py-3 font-bold text-white keep-white whitespace-nowrap w-full sm:w-auto">Subscribe</button>
+                    </div>
+                </div>
+                <div class="relative z-10 md:w-1/3 flex justify-center">
+                    <i class="fa-solid fa-envelope-open-text text-8xl text-white/20 drop-shadow-[0_0_15px_rgba(0,242,254,0.3)]"></i>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass border-t-0 border-b-0 border-l-0 border-r-0 rounded-t-[3rem] mt-16 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 flex items-center justify-center text-sm font-bold">
+                            <i class="fa-solid fa-car-side text-white keep-white"></i>
+                        </div>
+                        <span class="font-bold text-xl tracking-wide text-white">AeroAuto</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Your ultimate destination for premium car modifications and accessories. Built for enthusiasts, by enthusiasts.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-cyan-400 hover:bg-white/10 transition-all"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-cyan-400 hover:bg-white/10 transition-all"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-cyan-400 hover:bg-white/10 transition-all"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg">Shop</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">New Arrivals</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">Performance Parts</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">Interior Accessories</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">Exterior Styling</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">Lighting Systems</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg">Support</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">Track Order</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-cyan-400 text-sm transition-colors">Warranty Info</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg">Contact Us</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-cyan-400 mt-1"></i>
+                            <span class="text-gray-400 text-sm">123 Auto Avenue, Motor City<br>MC 90210, USA</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-cyan-400"></i>
+                            <span class="text-gray-400 text-sm">+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-cyan-400"></i>
+                            <span class="text-gray-400 text-sm">support@aeroauto.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">&copy; 2026 AeroAuto Accessories. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <i class="fa-brands fa-cc-visa text-gray-500 text-2xl hover:text-white transition-colors cursor-pointer"></i>
+                    <i class="fa-brands fa-cc-mastercard text-gray-500 text-2xl hover:text-white transition-colors cursor-pointer"></i>
+                    <i class="fa-brands fa-cc-paypal text-gray-500 text-2xl hover:text-white transition-colors cursor-pointer"></i>
+                    <i class="fa-brands fa-cc-apple-pay text-gray-500 text-2xl hover:text-white transition-colors cursor-pointer"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-3"></div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 z-[200] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 bg-black/60 backdrop-blur-sm px-4">
+        <div class="glass p-8 rounded-3xl w-full max-w-md relative transform scale-95 transition-transform duration-300" id="login-card">
+            <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="text-center mb-8">
+                <div class="w-12 h-12 mx-auto rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 flex items-center justify-center text-xl font-bold mb-4">
+                    <i class="fa-solid fa-car-side text-white keep-white"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white">Welcome Back</h2>
+                <p class="text-gray-400 text-sm mt-1">Sign in to your AeroAuto account</p>
+            </div>
+            <form onsubmit="handleLogin(event)">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Email Address</label>
+                    <input type="email" required class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="you@example.com">
+                </div>
+                <div class="mb-6">
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="block text-sm font-medium text-gray-300">Password</label>
+                        <a href="#" class="text-xs text-cyan-400 hover:text-cyan-300">Forgot Password?</a>
+                    </div>
+                    <input type="password" required class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-primary w-full py-3 rounded-xl font-bold text-white keep-white mb-4">Sign In</button>
+                <p class="text-center text-sm text-gray-400">
+                    Don't have an account? <button type="button" onclick="switchModal('register')" class="text-cyan-400 hover:text-cyan-300 font-medium">Register here</button>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="fixed inset-0 z-[200] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 bg-black/60 backdrop-blur-sm px-4">
+        <div class="glass p-8 rounded-3xl w-full max-w-md relative transform scale-95 transition-transform duration-300" id="register-card">
+            <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-white">Create Account</h2>
+                <p class="text-gray-400 text-sm mt-1">Join the VIP Auto Club today</p>
+            </div>
+            <form onsubmit="handleRegister(event)">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+                    <input type="text" required class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="John Doe">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Email Address</label>
+                    <input type="email" required class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="you@example.com">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Password</label>
+                    <input type="password" required class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="Create a strong password">
+                </div>
+                <button type="submit" class="btn-primary w-full py-3 rounded-xl font-bold text-white keep-white mb-4">Sign Up</button>
+                <p class="text-center text-sm text-gray-400">
+                    Already have an account? <button type="button" onclick="switchModal('login')" class="text-cyan-400 hover:text-cyan-300 font-medium">Sign in</button>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="fixed inset-0 z-[200] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 bg-black/80 backdrop-blur-md px-4" onclick="if(event.target === this) closeVideo()">
+        <div class="w-full max-w-4xl relative transform scale-95 transition-transform duration-300" id="video-card">
+            <button onclick="closeVideo()" class="absolute -top-12 right-0 text-white hover:text-cyan-400 transition-colors bg-white/10 w-10 h-10 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="glass p-2 rounded-2xl shadow-2xl shadow-cyan-900/50 aspect-video overflow-hidden">
+                <iframe id="youtube-iframe" class="w-full h-full rounded-xl" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide-Over Shopping Cart -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[150] opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeCart()"></div>
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:w-[400px] glass z-[160] transform translate-x-full transition-transform duration-300 flex flex-col shadow-[-10px_0_30px_rgba(0,0,0,0.5)]">
+        
+        <!-- Cart Header -->
+        <div class="p-6 border-b border-white/10 flex items-center justify-between bg-black/20">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400">
+                    <i class="fa-solid fa-shopping-cart"></i>
+                </div>
+                <h2 class="text-xl font-bold text-white">Your Cart</h2>
+            </div>
+            <button onclick="closeCart()" class="text-gray-400 hover:text-white w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Cart Items Container -->
+        <div id="cart-items-container" class="flex-grow overflow-y-auto p-6 space-y-4 custom-scrollbar">
+            <div class="flex flex-col items-center justify-center h-full text-gray-400 opacity-70">
+                <i class="fa-solid fa-cart-arrow-down text-5xl mb-4"></i>
+                <p>Your cart is currently empty.</p>
+            </div>
+        </div>
+
+        <!-- Cart Footer -->
+        <div class="p-6 border-t border-white/10 bg-black/20">
+            <div class="flex justify-between items-center mb-6">
+                <span class="text-gray-400 font-medium">Subtotal</span>
+                <span id="cart-total" class="text-2xl font-bold text-cyan-400">₹0</span>
+            </div>
+            <button onclick="openCheckout()" class="btn-primary w-full py-4 rounded-xl font-bold text-white keep-white flex items-center justify-center gap-2">
+                Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-[200] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 bg-black/80 backdrop-blur-md px-4 py-8" onclick="if(event.target === this) closeCheckout()">
+        <div class="glass p-6 sm:p-8 rounded-3xl w-full max-w-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto custom-scrollbar flex flex-col" id="checkout-card">
+            <button onclick="closeCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors z-10">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 mx-auto rounded-full bg-gradient-to-tr from-cyan-400 to-blue-500 flex items-center justify-center text-xl font-bold mb-4">
+                    <i class="fa-solid fa-credit-card text-white keep-white"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-white">Secure Checkout</h2>
+                <p class="text-gray-400 text-sm mt-1">Complete your order</p>
+            </div>
+
+            <form onsubmit="processCheckout(event)" class="flex-grow flex flex-col gap-6">
+                <!-- Order Summary -->
+                <div class="bg-white/5 rounded-xl p-4 border border-white/10 flex justify-between items-center">
+                    <span class="text-gray-300 font-medium">Total to Pay:</span>
+                    <span id="checkout-total-display" class="text-2xl font-bold text-cyan-400">₹0</span>
+                </div>
+
+                <!-- Shipping Details -->
+                <div>
+                    <h3 class="text-white font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-truck-fast text-cyan-400"></i> Shipping Address</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="col-span-1 sm:col-span-2">
+                            <input type="text" required class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="Full Address (Street, Apartment, etc.)">
+                        </div>
+                        <div>
+                            <input type="text" required class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="City">
+                        </div>
+                        <div>
+                            <input type="text" required class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all" placeholder="Postal Code">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary w-full py-4 rounded-xl font-bold text-white keep-white mt-2 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-check-circle"></i> Confirm & Pay
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Theme initialization
+        const initTheme = () => {
+            const savedTheme = localStorage.getItem('theme');
+            // Default to dark mode if no saved preference
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+            }
+        };
+        initTheme();
+
+        // Ensure icon reflects the initial state after DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const icon = document.getElementById('theme-icon');
+            if (document.body.classList.contains('light-theme')) {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon'); // Show moon to switch back to dark
+            } else {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun'); // Show sun to switch to light
+            }
+        });
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            const icon = document.getElementById('theme-icon');
+            
+            if (document.body.classList.contains('light-theme')) {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Shopping Cart Logic
+        let cart = [];
+        const cartCountElement = document.getElementById('cart-count');
+
+        function addToCart(name, price, image) {
+            // Check if item already exists
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, image, quantity: 1 });
+            }
+            
+            updateCartUI();
+            
+            // Animate counter
+            cartCountElement.classList.add('scale-150', 'bg-green-500');
+            setTimeout(() => {
+                cartCountElement.classList.remove('scale-150', 'bg-green-500');
+            }, 300);
+
+            // Show Custom Toast Notification
+            showToast(`Added <strong>${name}</strong> to cart!`);
+        }
+
+        function updateCartUI() {
+            // Update total items count badge
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountElement.innerText = totalItems;
+
+            const container = document.getElementById('cart-items-container');
+            const totalElement = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-full text-gray-400 opacity-70">
+                        <i class="fa-solid fa-cart-arrow-down text-5xl mb-4"></i>
+                        <p>Your cart is currently empty.</p>
+                    </div>`;
+                totalElement.innerText = '₹0';
+                return;
+            }
+
+            let totalCost = 0;
+            container.innerHTML = '';
+
+            cart.forEach((item, index) => {
+                totalCost += item.price * item.quantity;
+                container.innerHTML += `
+                    <div class="glass p-3 rounded-xl flex gap-4 items-center relative group">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg border border-white/10">
+                        <div class="flex-grow">
+                            <h4 class="text-white text-sm font-bold truncate pr-6">${item.name}</h4>
+                            <p class="text-cyan-400 font-bold mt-1">₹${item.price.toLocaleString('en-IN')}</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="changeQuantity(${index}, -1)" class="w-6 h-6 rounded-md bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs">-</button>
+                                <span class="text-sm font-medium w-4 text-center">${item.quantity}</span>
+                                <button onclick="changeQuantity(${index}, 1)" class="w-6 h-6 rounded-md bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs">+</button>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="absolute top-3 right-3 text-gray-500 hover:text-red-400 transition-colors">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `;
+            });
+
+            totalElement.innerText = `₹${totalCost.toLocaleString('en-IN')}`;
+        }
+
+        function changeQuantity(index, delta) {
+            if (cart[index].quantity + delta > 0) {
+                cart[index].quantity += delta;
+            } else {
+                cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+            showToast('Item removed from cart.');
+        }
+
+        // Slide-Over Cart Handlers
+        function openCart() {
+            document.getElementById('cart-overlay').classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('cart-sidebar').classList.remove('translate-x-full');
+        }
+
+        function closeCart() {
+            document.getElementById('cart-overlay').classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('cart-sidebar').classList.add('translate-x-full');
+        }
+
+        // Checkout Logic
+        const checkoutModal = document.getElementById('checkout-modal');
+        const checkoutCard = document.getElementById('checkout-card');
+
+        function openCheckout() {
+            if (cart.length === 0) {
+                showToast("Your cart is empty! Add items before checking out.");
+                return;
+            }
+            
+            // Calculate total
+            let totalCost = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('checkout-total-display').innerText = `₹${totalCost.toLocaleString('en-IN')}`;
+
+            // Close cart and open checkout modal
+            closeCart();
+            checkoutModal.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                checkoutCard.classList.remove('scale-95');
+                checkoutCard.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeCheckout() {
+            checkoutCard.classList.remove('scale-100');
+            checkoutCard.classList.add('scale-95');
+            checkoutModal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function processCheckout(event) {
+            event.preventDefault(); // Prevent page reload
+            
+            // Empty the cart
+            cart = [];
+            updateCartUI();
+            
+            // Close checkout modal
+            closeCheckout();
+            
+            // Show success message
+            showToast('Payment Successful! Your order has been placed.');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Logic
+        let isMobileMenuOpen = false;
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            isMobileMenuOpen = !isMobileMenuOpen;
+            
+            if (isMobileMenuOpen) {
+                menu.classList.remove('-translate-y-[150%]', 'opacity-0', 'pointer-events-none');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                menu.classList.add('-translate-y-[150%]', 'opacity-0', 'pointer-events-none');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        // Video Modal Logic
+        const videoModal = document.getElementById('video-modal');
+        const videoCard = document.getElementById('video-card');
+        const iframe = document.getElementById('youtube-iframe');
+        // Reliable embeddable 4K Car Cinematic video ID (Official Porsche Embed)
+        const videoId = "Vb1sVvUe0j4"; 
+
+        function openVideo() {
+            // Using mute=1 ensures autoplay works across all modern browsers
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0`;
+            videoModal.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                videoCard.classList.remove('scale-95');
+                videoCard.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeVideo() {
+            videoCard.classList.remove('scale-100');
+            videoCard.classList.add('scale-95');
+            videoModal.classList.add('opacity-0', 'pointer-events-none');
+            // Remove src to stop audio from playing in the background
+            setTimeout(() => { iframe.src = ""; }, 300);
+        }
+
+        // Custom Toast Notification System
+        function showToast(message) {
+            const toastContainer = document.getElementById('toast-container');
+            
+            // Create toast element
+            const toast = document.createElement('div');
+            // Apply glassmorphism styling to the toast
+            toast.className = 'glass px-6 py-4 rounded-xl flex items-center gap-3 text-white border-l-4 border-l-cyan-400 transform transition-all duration-500 translate-y-12 opacity-0 shadow-2xl';
+            
+            toast.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                    <i class="fa-solid fa-check text-cyan-400"></i>
+                </div>
+                <div class="text-sm">${message}</div>
+            `;
+            
+            toastContainer.appendChild(toast);
+
+            // Trigger reflow to ensure animation plays
+            void toast.offsetWidth;
+
+            // Animate in
+            toast.classList.remove('translate-y-12', 'opacity-0');
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-x-12');
+                setTimeout(() => {
+                    toast.remove();
+                }, 500);
+            }, 3000);
+        }
+
+        // Modal Logic for Login/Register
+        const loginModal = document.getElementById('login-modal');
+        const loginCard = document.getElementById('login-card');
+        const registerModal = document.getElementById('register-modal');
+        const registerCard = document.getElementById('register-card');
+
+        function openLogin() {
+            closeModals(); // Ensure others are closed
+            loginModal.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                loginCard.classList.remove('scale-95');
+                loginCard.classList.add('scale-100');
+            }, 10);
+        }
+
+        function openRegister() {
+            closeModals();
+            registerModal.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                registerCard.classList.remove('scale-95');
+                registerCard.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModals() {
+            // Close Login
+            loginCard.classList.remove('scale-100');
+            loginCard.classList.add('scale-95');
+            loginModal.classList.add('opacity-0', 'pointer-events-none');
+            
+            // Close Register
+            registerCard.classList.remove('scale-100');
+            registerCard.classList.add('scale-95');
+            registerModal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function switchModal(type) {
+            closeModals();
+            setTimeout(() => {
+                if(type === 'login') openLogin();
+                if(type === 'register') openRegister();
+            }, 300); // Wait for close animation
+        }
+
+        // Authentication Handlers
+        let isLoggedIn = false;
+
+        function handleLogin(event) {
+            event.preventDefault();
+            isLoggedIn = true;
+            closeModals();
+            updateUserUI();
+            showToast('Logged in successfully! Welcome to AeroAuto.');
+            // Scroll to the top of the home page
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            isLoggedIn = true;
+            closeModals();
+            updateUserUI();
+            showToast('Account created! Welcome to the VIP Club.');
+            // Scroll to the top of the home page
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateUserUI() {
+            const userBtn = document.getElementById('user-btn');
+            if (isLoggedIn) {
+                // Change icon to indicate the user is logged in
+                userBtn.innerHTML = '<i class="fa-solid fa-user-check text-cyan-400"></i>';
+                userBtn.classList.add('bg-cyan-500/20', 'border-cyan-400/50');
+                // Change click behavior to show profile status instead of login modal
+                userBtn.onclick = () => showToast('You are currently logged in.');
+            }
+        }
+
+        // Close modals when clicking outside the card
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) closeModals();
+        });
+        registerModal.addEventListener('click', (e) => {
+            if (e.target === registerModal) closeModals();
+        });
+
+        // Navbar blur effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
